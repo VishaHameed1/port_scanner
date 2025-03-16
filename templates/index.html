@@ -1,0 +1,184 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Tools</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .loading {
+            display: none;
+        }
+        .loading.active {
+            display: block;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .nav-link.active {
+            border-bottom-color: #3B82F6;
+        }
+        .nav-link:hover {
+            border-bottom-color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 shadow-lg mb-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex space-x-8 items-center">
+                    <a href="/" class="nav-link active" id="scannerLink">Port Scanner</a>
+                    <a href="/capture" class="nav-link" id="captureLink">Network Capture</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <!-- Port Scanner Section -->
+            <div id="portScanner">
+                <h1 class="text-4xl font-bold text-center mb-8">Port Scanner</h1>
+                
+                <div class="bg-gray-800 rounded-lg p-6 shadow-lg">
+                    <form id="scanForm" class="space-y-4">
+                        <div>
+                            <label for="target" class="block text-sm font-medium mb-2">Target IP/Hostname:</label>
+                            <input type="text" id="target" name="target" 
+                                   class="w-full px-4 py-2 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                   placeholder="192.168.1.1">
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="start_port" class="block text-sm font-medium mb-2">Start Port:</label>
+                                <input type="number" id="start_port" name="start_port" 
+                                       class="w-full px-4 py-2 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                       placeholder="1">
+                            </div>
+                            <div>
+                                <label for="end_port" class="block text-sm font-medium mb-2">End Port:</label>
+                                <input type="number" id="end_port" name="end_port" 
+                                       class="w-full px-4 py-2 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                       placeholder="1024">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-md transition duration-200">
+                            Scan Ports
+                        </button>
+                    </form>
+                    
+                    <div id="loading" class="loading mt-4 text-center">
+                        <div class="inline-block animate-pulse">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </div>
+                        <p class="mt-2">Scanning ports, please wait...</p>
+                    </div>
+                    
+                    <div id="results" class="mt-6 hidden">
+                        <h2 class="text-xl font-semibold mb-4">Scan Results</h2>
+                        <div class="bg-gray-700 rounded-md p-4">
+                            <div id="resultsContent" class="font-mono text-sm"></div>
+                            <div id="timeElapsed" class="mt-4 text-green-400 font-semibold"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('scanForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            const resultsContent = document.getElementById('resultsContent');
+            const timeElapsed = document.getElementById('timeElapsed');
+            
+            // Show loading, hide results
+            loading.classList.add('active');
+            results.classList.add('hidden');
+            
+            // Get form data
+            const formData = {
+                target: document.getElementById('target').value,
+                start_port: document.getElementById('start_port').value,
+                end_port: document.getElementById('end_port').value
+            };
+            
+            try {
+                const response = await fetch('/scan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'An error occurred during scanning');
+                }
+                
+                // Display results
+                let resultHTML = '';
+                if (data.open_ports.length === 0) {
+                    resultHTML = 'No open ports found in the specified range.';
+                } else {
+                    resultHTML = 'Open ports:<br>' + 
+                                data.open_ports.map(port => `Port ${port} is open`).join('<br>');
+                }
+                
+                resultsContent.innerHTML = resultHTML;
+                timeElapsed.textContent = `Time elapsed: ${data.elapsed_time} seconds`;
+                
+                // Show results, hide loading
+                results.classList.remove('hidden');
+                
+            } catch (error) {
+                resultsContent.innerHTML = `Error: ${error.message}`;
+                results.classList.remove('hidden');
+            } finally {
+                loading.classList.remove('active');
+            }
+        });
+
+        // Update active navigation link
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentPath = window.location.pathname;
+            const scannerLink = document.getElementById('scannerLink');
+            const captureLink = document.getElementById('captureLink');
+            
+            if (currentPath === '/') {
+                scannerLink.classList.add('active');
+                captureLink.classList.remove('active');
+            } else if (currentPath === '/capture') {
+                captureLink.classList.add('active');
+                scannerLink.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

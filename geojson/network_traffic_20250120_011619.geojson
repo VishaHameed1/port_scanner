@@ -1,0 +1,536 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "34.98.64.218",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:44",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "13.107.42.14",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:44",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "35.71.178.8",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:44",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.8014,
+          1.3673
+        ]
+      },
+      "properties": {
+        "ip": "207.65.33.82",
+        "country": "Singapore",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:44",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.4903,
+          39.0469
+        ]
+      },
+      "properties": {
+        "ip": "98.82.156.107",
+        "country": "United States",
+        "city": "Ashburn",
+        "timestamp": "2025-01-20 01:15:45",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.7143,
+          45.8491
+        ]
+      },
+      "properties": {
+        "ip": "54.200.245.37",
+        "country": "United States",
+        "city": "Boardman",
+        "timestamp": "2025-01-20 01:15:45",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6899,
+          35.6893
+        ]
+      },
+      "properties": {
+        "ip": "35.213.7.90",
+        "country": "Japan",
+        "city": "Tokyo",
+        "timestamp": "2025-01-20 01:15:45",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "107.167.96.31",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:45",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0435,
+          33.7233
+        ]
+      },
+      "properties": {
+        "ip": "101.50.113.41",
+        "country": "Pakistan",
+        "city": "Islamabad",
+        "timestamp": "2025-01-20 01:15:45",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.8975,
+          52.3759
+        ]
+      },
+      "properties": {
+        "ip": "82.145.213.8",
+        "country": "The Netherlands",
+        "city": "Amsterdam",
+        "timestamp": "2025-01-20 01:15:45",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.4151,
+          40.5237
+        ]
+      },
+      "properties": {
+        "ip": "173.208.97.201",
+        "country": "United States",
+        "city": "Edison",
+        "timestamp": "2025-01-20 01:15:45",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "142.250.201.142",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:45",
+        "protocol": "QUIC"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3387,
+          48.8582
+        ]
+      },
+      "properties": {
+        "ip": "141.94.175.218",
+        "country": "France",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:45",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "172.217.18.136",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:45",
+        "protocol": "QUIC"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6899,
+          35.6893
+        ]
+      },
+      "properties": {
+        "ip": "35.213.45.194",
+        "country": "Japan",
+        "city": "Tokyo",
+        "timestamp": "2025-01-20 01:15:46",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.001,
+          37.3974
+        ]
+      },
+      "properties": {
+        "ip": "74.214.196.131",
+        "country": "United States",
+        "city": "Sunnyvale",
+        "timestamp": "2025-01-20 01:15:46",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.4903,
+          39.0469
+        ]
+      },
+      "properties": {
+        "ip": "34.237.73.95",
+        "country": "United States",
+        "city": "Ashburn",
+        "timestamp": "2025-01-20 01:15:47",
+        "protocol": "TLS"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -94.5778,
+          39.1027
+        ]
+      },
+      "properties": {
+        "ip": "34.36.57.103",
+        "country": "United States",
+        "city": "Kansas City",
+        "timestamp": "2025-01-20 01:15:49",
+        "protocol": "QUIC"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -94.5778,
+          39.1027
+        ]
+      },
+      "properties": {
+        "ip": "34.120.111.33",
+        "country": "United States",
+        "city": "Kansas City",
+        "timestamp": "2025-01-20 01:15:50",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.9997,
+          21.0037
+        ]
+      },
+      "properties": {
+        "ip": "157.240.227.60",
+        "country": "Oman",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:51",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.7286,
+          18.6161
+        ]
+      },
+      "properties": {
+        "ip": "20.198.118.190",
+        "country": "India",
+        "city": "Pune",
+        "timestamp": "2025-01-20 01:15:54",
+        "protocol": "TLS"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "192.178.24.194",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:55",
+        "protocol": "QUIC"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "192.178.24.195",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:55",
+        "protocol": "QUIC"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.2297,
+          34.046
+        ]
+      },
+      "properties": {
+        "ip": "216.239.36.181",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:55",
+        "protocol": "QUIC"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "64.233.167.154",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:55",
+        "protocol": "QUIC"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "172.217.169.228",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:15:59",
+        "protocol": "QUIC"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "13.107.9.158",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:16:01",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.7714,
+          37.1835
+        ]
+      },
+      "properties": {
+        "ip": "20.189.173.2",
+        "country": "United States",
+        "city": "San Jose",
+        "timestamp": "2025-01-20 01:16:02",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.7714,
+          37.1835
+        ]
+      },
+      "properties": {
+        "ip": "20.189.173.13",
+        "country": "United States",
+        "city": "San Jose",
+        "timestamp": "2025-01-20 01:16:03",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "108.177.15.188",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:16:10",
+        "protocol": "TCP"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.822,
+          37.751
+        ]
+      },
+      "properties": {
+        "ip": "204.79.197.237",
+        "country": "United States",
+        "city": null,
+        "timestamp": "2025-01-20 01:16:14",
+        "protocol": "TCP"
+      }
+    }
+  ],
+  "metadata": {
+    "created": "2025-01-20 01:16:19",
+    "source": "Network Traffic Analysis"
+  }
+}

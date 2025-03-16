@@ -1,0 +1,31 @@
+Port Scanner Log File
+==================================================
+2025-01-19 23:52:20 - Scanning started for target: 192.168.1.0, Ports: 1-111
+2025-01-19 23:52:21 - No open ports found for target: 192.168.1.0, Ports: 1-111
+2025-01-19 23:52:21 - Scanning completed for target: 192.168.1.0, Time elapsed: 1.06 seconds
+2025-01-20 00:10:45 - Scanning started for target: 192.168.1.0, Ports: 1-1000
+2025-01-20 00:10:46 - No open ports found for target: 192.168.1.0, Ports: 1-1000
+2025-01-20 00:10:46 - Scanning completed for target: 192.168.1.0, Time elapsed: 1.37 seconds
+2025-01-20 01:14:28 - Scanning started for target: 192.168.1.0, Ports: 1-100
+2025-01-20 01:14:30 - No open ports found for target: 192.168.1.0, Ports: 1-100
+2025-01-20 01:14:30 - Scanning completed for target: 192.168.1.0, Time elapsed: 1.08 seconds
+2025-01-20 01:15:17 - Scanning started for target: 174.129.111.207, Ports: 1-1000
+2025-01-20 01:15:19 - Port 22 is open on target: 174.129.111.207
+2025-01-20 01:15:19 - Port 21 is open on target: 174.129.111.207
+2025-01-20 01:15:19 - Port 80 is open on target: 174.129.111.207
+2025-01-20 01:15:19 - Port 110 is open on target: 174.129.111.207
+2025-01-20 01:15:19 - Port 143 is open on target: 174.129.111.207
+2025-01-20 01:15:19 - Port 443 is open on target: 174.129.111.207
+2025-01-20 01:15:19 - Port 465 is open on target: 174.129.111.207
+2025-01-20 01:15:19 - Port 993 is open on target: 174.129.111.207
+2025-01-20 01:15:19 - Port 995 is open on target: 174.129.111.207
+2025-01-20 01:15:19 - Scanning completed for target: 174.129.111.207, Time elapsed: 1.98 seconds
+2025-01-20 10:30:06 - Scanning started for target: 192.168.150.136, Ports: 1-1000
+2025-01-20 10:30:08 - Port 135 is open on target: 192.168.150.136
+2025-01-20 10:30:08 - Port 139 is open on target: 192.168.150.136
+2025-01-20 10:30:08 - Port 445 is open on target: 192.168.150.136
+2025-01-20 10:30:08 - Scanning completed for target: 192.168.150.136, Time elapsed: 1.6 seconds
+2025-01-20 12:49:30 - Scanning started for target: 192.168.150.136, Ports: 1-1000
+2025-01-20 12:49:32 - Port 135 is open on target: 192.168.150.136
+2025-01-20 12:49:32 - Port 445 is open on target: 192.168.150.136
+2025-01-20 12:49:32 - Scanning completed for target: 192.168.150.136, Time elapsed: 1.68 seconds

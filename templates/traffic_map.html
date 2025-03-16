@@ -1,0 +1,323 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-8">Network Traffic Analysis</h1>
+    
+    <div class="bg-gray-800 rounded-lg p-6 shadow-lg">
+        <!-- Control Panel -->
+        <div class="mb-6 flex justify-between items-center">
+            <div class="flex space-x-4">
+                <button id="toggleRefresh" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition">
+                    Pause Auto-Refresh
+                </button>
+                <span id="refreshStatus" class="text-green-400 py-2">Auto-refreshing every 5 seconds</span>
+            </div>
+            <span id="lastUpdate" class="text-gray-400"></span>
+        </div>
+        
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-4 gap-4 mb-6">
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h3 class="text-gray-400 text-sm">Total Connections</h3>
+                <p id="totalConnections" class="text-2xl font-bold text-white">0</p>
+            </div>
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h3 class="text-gray-400 text-sm">Unique Countries</h3>
+                <p id="uniqueCountries" class="text-2xl font-bold text-white">0</p>
+            </div>
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h3 class="text-gray-400 text-sm">Unique IPs</h3>
+                <p id="uniqueIPs" class="text-2xl font-bold text-white">0</p>
+            </div>
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h3 class="text-gray-400 text-sm">Protocol Types</h3>
+                <p id="protocolTypes" class="text-2xl font-bold text-white">0</p>
+            </div>
+        </div>
+        
+        <!-- Maps Grid -->
+        <div class="grid grid-cols-2 gap-6 mb-6">
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold mb-4 text-white">Connection Map</h2>
+                <div id="map" class="h-96 w-full rounded-lg"></div>
+            </div>
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold mb-4 text-white">Traffic Heatmap</h2>
+                <div id="heatmap" class="h-96 w-full rounded-lg"></div>
+            </div>
+        </div>
+        
+        <!-- Charts Grid -->
+        <div class="grid grid-cols-2 gap-6">
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold mb-4 text-white">Traffic by Country</h2>
+                <div class="chart-container">
+                    <canvas id="countryChart"></canvas>
+                </div>
+            </div>
+            <div class="bg-gray-700 p-4 rounded-lg">
+                <h2 class="text-xl font-semibold mb-4 text-white">Traffic by Protocol</h2>
+                <div class="chart-container">
+                    <canvas id="protocolChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdCPdEghb8kW5wGhsK2Vm84lAs3kCVwk4&libraries=visualization"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+let map, heatmap;
+let markers = [];
+let countryChart = null;
+let protocolChart = null;
+let isAutoRefreshEnabled = true;
+let refreshInterval = 5000;
+
+function initializeMap() {
+    // Initialize main map
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 2,
+        center: { lat: 30, lng: 0 },
+        styles: [
+            // Dark theme map styles
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            // Add more styles as needed
+        ]
+    });
+
+    // Initialize heatmap
+    heatmap = new google.maps.Map(document.getElementById('heatmap'), {
+        zoom: 2,
+        center: { lat: 30, lng: 0 },
+        styles: [
+            // Dark theme map styles (same as above)
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]}
+        ]
+    });
+}
+
+function clearMarkers() {
+    markers.forEach(marker => marker.setMap(null));
+    markers = [];
+}
+
+function updateStats(data) {
+    const features = data.features || [];
+    const countries = new Set();
+    const ips = new Set();
+    const protocols = new Set();
+
+    features.forEach(feature => {
+        countries.add(feature.properties.country);
+        ips.add(feature.properties.ip);
+        protocols.add(feature.properties.protocol);
+    });
+
+    document.getElementById('totalConnections').textContent = features.length;
+    document.getElementById('uniqueCountries').textContent = countries.size;
+    document.getElementById('uniqueIPs').textContent = ips.size;
+    document.getElementById('protocolTypes').textContent = protocols.size;
+}
+
+function updateCharts(data) {
+    const features = data.features || [];
+    
+    // Process data for charts
+    const countryData = {};
+    const protocolData = {};
+    
+    features.forEach(feature => {
+        const country = feature.properties.country;
+        const protocol = feature.properties.protocol;
+        
+        countryData[country] = (countryData[country] || 0) + 1;
+        protocolData[protocol] = (protocolData[protocol] || 0) + 1;
+    });
+
+    // Update country chart
+    if (countryChart) countryChart.destroy();
+    const countryCtx = document.getElementById('countryChart');
+    countryChart = new Chart(countryCtx, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(countryData),
+            datasets: [{
+                label: 'Connections by Country',
+                data: Object.values(countryData),
+                backgroundColor: 'rgba(54, 162, 235, 0.5)'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white'
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    ticks: { color: 'white' }
+                },
+                x: {
+                    ticks: { color: 'white' }
+                }
+            }
+        }
+    });
+
+    // Update protocol chart
+    if (protocolChart) protocolChart.destroy();
+    const protocolCtx = document.getElementById('protocolChart');
+    protocolChart = new Chart(protocolCtx, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(protocolData),
+            datasets: [{
+                data: Object.values(protocolData),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white'
+                    }
+                }
+            }
+        }
+    });
+}
+
+function updateMap(data) {
+    clearMarkers();
+    const heatmapData = [];
+    
+    data.features.forEach(feature => {
+        const coords = feature.geometry.coordinates;
+        const latLng = new google.maps.LatLng(coords[1], coords[0]);
+        
+        // Add marker to main map
+        const marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+            title: `${feature.properties.ip} (${feature.properties.country})`
+        });
+        
+        // Add info window
+        const infoContent = `
+            <div>
+                <strong>IP:</strong> ${feature.properties.ip}<br>
+                <strong>Country:</strong> ${feature.properties.country}<br>
+                <strong>City:</strong> ${feature.properties.city}<br>
+                <strong>Protocol:</strong> ${feature.properties.protocol}<br>
+                <strong>Timestamp:</strong> ${feature.properties.timestamp}
+            </div>
+        `;
+        
+        const infoWindow = new google.maps.InfoWindow({
+            content: infoContent
+        });
+        
+        marker.addListener('click', () => {
+            infoWindow.open(map, marker);
+        });
+        
+        markers.push(marker);
+        
+        // Add point to heatmap
+        heatmapData.push({
+            location: latLng,
+            weight: 1
+        });
+    });
+    
+    // Update heatmap layer
+    new google.maps.visualization.HeatmapLayer({
+        data: heatmapData,
+        map: heatmap,
+        radius: 20
+    });
+}
+
+function updateDateTime() {
+    const now = new Date();
+    document.getElementById('lastUpdate').textContent = 
+        `Last updated: ${now.toLocaleString()}`;
+}
+
+async function fetchAndUpdateData() {
+    try {
+        const response = await fetch('/get-traffic-data');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('Received data:', data); // Debug log
+        
+        if (data.features && data.features.length > 0) {
+            updateMap(data);
+            updateStats(data);
+            updateCharts(data);
+            updateDateTime();
+        } else {
+            console.log('No features found in data');
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+// Initialize everything when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    initializeMap();
+    fetchAndUpdateData();
+    
+    // Set up auto-refresh
+    const refreshTimer = setInterval(() => {
+        if (isAutoRefreshEnabled) {
+            fetchAndUpdateData();
+        }
+    }, refreshInterval);
+    
+    // Toggle auto-refresh
+    document.getElementById('toggleRefresh').addEventListener('click', () => {
+        isAutoRefreshEnabled = !isAutoRefreshEnabled;
+        const button = document.getElementById('toggleRefresh');
+        const status = document.getElementById('refreshStatus');
+        
+        if (isAutoRefreshEnabled) {
+            button.textContent = 'Pause Auto-Refresh';
+            status.textContent = 'Auto-refreshing every 5 seconds';
+            status.classList.remove('text-red-400');
+            status.classList.add('text-green-400');
+        } else {
+            button.textContent = 'Resume Auto-Refresh';
+            status.textContent = 'Auto-refresh paused';
+            status.classList.remove('text-green-400');
+            status.classList.add('text-red-400');
+        }
+    });
+});
+</script>
+{% endblock %}
