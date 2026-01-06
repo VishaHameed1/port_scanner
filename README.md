@@ -1,76 +1,77 @@
 **🌐 Network Analysis and Monitoring Tool**
-Ek comprehensive web-based application jo network traffic analysis, multithreaded port scanning, aur real-time geographical visualization ko ek hi dashboard par pesh karti hai.
+A comprehensive web-based application designed for real-time network traffic analysis, multi-threaded port scanning, and geographical traffic visualization within a unified dashboard.
 
 **🚀 Key Features**
 **🛡️ Security & Scanning**
-Multi-threaded Port Scanner: ThreadPoolExecutor ka istemal karte hue fast scanning jo target IPs aur custom port ranges ko support karti hai.
+Multi-threaded Port Scanner: Utilizes ThreadPoolExecutor for high-speed concurrent scanning, supporting custom port ranges and target IPs.
 
-Vulnerability Assessment: Open ports ko identify karke potential security risks ka analysis.
+Vulnerability Assessment: Identifies open ports to help administrators analyze potential security entry points.
 
-Input Validation: Har user input (IP/Ports) ko strictly validate kiya jata hai performance aur security ke liye.
+Robust Input Validation: Strictly validates all user inputs (IP addresses and port ranges) to ensure system stability and security.
 
 **📊 Monitoring & Analysis**
-Real-time Packet Capture: 30-second window mein 1400+ packets tak process karne ki salahiyat.
+Real-time Packet Capture: Capable of processing 1400+ packets within a 30-second capture window.
 
-Traffic Visualization: Leaflet.js (Migrated from Google Maps) ka istemal karte hue live connection mapping aur markers.
+Traffic Visualization: Features an interactive world map using Leaflet.js (migrated from Google Maps) for live connection tracking.
 
-Heatmap: Traffic density ko heatmap ke zariye visualize karne ki facility.
+Heatmap Integration: Visualizes traffic density across different geographical regions to identify high-activity zones.
 
-Statistical Charts: Protocol distribution (TCP/UDP/TLS) aur country-wise traffic analysis Chart.js ke sath.
+Statistical Dashboards: Provides real-time charts for Protocol distribution (TCP/UDP/TLS) and Country-wise traffic analysis using Chart.js.
 
 **🏗️ Architecture Overview**
-Application ko modular design par banaya gaya hai:
+The application follows a modular architecture:
 
-Backend: Python Flask jo network operations aur data processing handle karta hai.
+Backend: Powered by Python Flask, managing core network operations, multithreading, and data processing.
 
-Frontend: Tailwind CSS aur JavaScript (AJAX) real-time data refresh ke liye.
+Frontend: Built with Tailwind CSS and JavaScript (AJAX) to facilitate real-time data updates without page refreshes.
 
-Data Processing: Packets ko capture karke GeoJSON format mein convert karna taaki geographical mapping mumkin ho sake.
+Data Pipeline: Captures raw network packets and converts them into GeoJSON format for seamless geographical mapping.
 
 **🛠️ Technical Stack**
 Framework: Flask (Python)
 
-**Libraries:**
+Network Libraries: * pyshark: For deep packet capture and analysis.
 
-pyshark: Packet capture aur analysis ke liye.
+geoip2: For IP geolocation tracking.
 
-geoip2: IP geolocation tracking ke liye.
+socket & threading: For network operations and concurrency.
 
-socket & threading: Network operations aur concurrency ke liye.
-
-Frontend: HTML5, Tailwind CSS, Leaflet.js, Chart.js.
+Frontend Technologies: HTML5, Tailwind CSS, Leaflet.js, Chart.js.
 
 **⚙️ Operational Requirements**
 Python 3.x environment.
 
-Network interface (NIC) access (Promiscuous mode recommended).
+Network Interface (NIC) Access: Promiscuous mode recommended for full packet capture.
 
-Wireshark/TShark installed (PyShark dependency).
+Dependencies: Wireshark/TShark must be installed (required by PyShark).
 
-GeoLite2-City database (.mmdb file).
+Database: GeoLite2-City database (.mmdb file) for geolocation accuracy.
 
-**📝 How to Setup**
-Clone the Repo:
+**📝 Setup Instructions**
+Clone the Repository:
 
 Bash
 
 git clone https://github.com/VishaHameed1/port_scanner.git
 cd port_scanner
-Install Dependencies:
+Install Required Dependencies:
 
 Bash
 
 pip install flask pyshark geoip2
-Run the App:
+Run the Application:
 
 Bash
 
 python app.py
-Access Dashboard: Browser mein http://127.0.0.1:5000 open karein.
+Access the Dashboard: Open http://127.0.0.1:5000 in your web browser.
+
+**📑 Project Documentation**
+For a detailed breakdown of the implementation, system metrics, and security considerations, refer to the: Technical Project Report (DOCX)
 
 **📈 Future Enhancements**
-Machine learning-based threat detection.
+Implementation of Machine Learning for automated threat detection.
 
-Advanced packet analysis aur API integration.
+Integration of an Advanced API for third-party security tools.
 
-Enhanced automated reporting system.
+Enhanced automated reporting system for historical traffic data.
